@@ -420,7 +420,7 @@ namespace cansat_app
 
         }
 
-        //FUNCION PUBLICA MANDAR DATOS A LABEL EN TIEMPO REAL
+        //FUNCION PUBLICA MANDAR DATOS A LABEL EN TIEMPO REALL
         public void PutData(string pc, string mt, string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA, string cT, string p1cp, string p2cp, String sp1r, String sp2r)
         {
             packetCount_lbl.Text = pc;
