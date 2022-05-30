@@ -43,8 +43,8 @@ namespace Cansat2021
                             CmdEcho = telemetryList[18]
                         }
                     };
-                    //string path = "C:\\Flight_1231_C.csv";
-                    handleContainerFile(path+ "\\Flight_1231_C.csv", records);
+                    //string path = "C:\\Flight_1064_C.csv";
+                    handleContainerFile(path+ "\\Flight_1064_C.csv", records);
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace Cansat2021
                     };
                     string path2;
 
-                    path2 = telemetryList[3] == "SP1" ? "\\Flight_1231_SP1.csv" : "\\Flight_1231_SP2.csv";
+                    path2 = telemetryList[3] == "SP1" ? "\\Flight_1064_SP1.csv" : "\\Flight_1064_SP2.csv";
                     handlePayloadFile(path+path2, records);
                 }
             }
@@ -97,8 +97,8 @@ namespace Cansat2021
                         CmdEcho = telemetryList[18]
                     }
                 };
-                //string path = "C:\\Flight_1231_C.csv";
-                handleContainerFile(path+ "\\Flight_1231_C.csv", records);
+                //string path = "C:\\Flight_1064_C.csv";
+                handleContainerFile(path+ "\\Flight_1064_C.csv", records);
             }
             else if (telemetryList.Count == 7)
             {
@@ -117,7 +117,7 @@ namespace Cansat2021
                     }
                 };
                 String path2;
-                path2 = telemetryList[3] == "SP1" ? "\\Flight_1231_SP1.csv" : "\\Flight_1231_SP2.csv";
+                path2 = telemetryList[3] == "SP1" ? "\\Flight_1064_SP1.csv" : "\\Flight_1064_SP2.csv";
 
                 handlePayloadFile(path+path2, records);
             }
