@@ -11,7 +11,7 @@ namespace cansat_app
 {
     public static class Mqtt
     {
-        public static string[] _topic = { "teams/1231" };
+        public static string[] _topic = { "teams/1064" };
         public static MqttClient client = new MqttClient("cansat.info");
         public static void conect()
         {
@@ -20,7 +20,7 @@ namespace cansat_app
             client.MqttMsgSubscribed += client_MqttMsgSubscribed;
             client.MqttMsgUnsubscribed += client_MqttMsgUnsubscribed;
 
-            client.Connect(Guid.NewGuid().ToString(), "1231", "Puedkuco504_");
+            client.Connect(Guid.NewGuid().ToString(), "1064", "Puedkuco504_");
             Subscribe(client);
 
             var isConnected = client.IsConnected;

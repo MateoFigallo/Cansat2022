@@ -308,7 +308,7 @@ namespace cansat_app
         {
             timer1.Enabled = true;
             file = new System.IO.StreamReader(this.textBox3.Text);
-            var datatx = "CMD,1231,SIM,ACTIVATE";
+            var datatx = "CMD,1064,SIM,ACTIVATE";
             bufferout.Clear();
             bufferout.Add(0x7E);
             bufferout.Add(0x00);
@@ -344,7 +344,7 @@ namespace cansat_app
 
         private void button5_Click(object sender, EventArgs e)
         {
-            var datatx = "CMD,1231,SIM,ENABLE";
+            var datatx = "CMD,1064,SIM,ENABLE";
             bufferout.Clear();
             bufferout.Add(0x7E);
             bufferout.Add(0x00);
@@ -464,7 +464,7 @@ namespace cansat_app
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var datatx = "CMD,1231,CX,ON";
+            var datatx = "CMD,1064,CX,ON";
             bufferout.Clear();
             bufferout.Add(0x7E);
             bufferout.Add(0x00);
@@ -605,7 +605,7 @@ namespace cansat_app
                         
                         }
 
-                    command=command.Replace("$", "1231");
+                    command=command.Replace("$", "1064");
                     var datatx = command;
                     bufferout.Clear();
                     bufferout.Add(0x7E);

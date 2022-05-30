@@ -113,7 +113,7 @@ namespace cansat_app
 
         private void btnSendData_Click(object sender, EventArgs e)
         {
-            var datatx = "CMD,1231,CX,ON";
+            var datatx = "CMD,1064,CX,ON";
             bufferout.Clear();
             bufferout.Add(0x7E);
             bufferout.Add(0x00);
