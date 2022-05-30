@@ -42,36 +42,12 @@ namespace cansat_app
         
         public  void init()
         {
-            //TimerClass timer = new TimerClass();
-            //TimerClass.Main();
-
-
-            //CsvHelper csvHelper = new CsvHelper();
-            //var myFile = csvHelper.readExampleFile();
-            //string name = "";
-            //string message = "";
-            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            //Thread readThread = new Thread(Read);
-
-            // Create a new SerialPort object with default settings.  
-            //serialPort1 = new SerialPort();
-
-            // Allow the user to set the appropriate properties.  
+            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;  
             serialPort1.PortName = SetPortName(Form1.portname );
-            //serialPort1.BaudRate = SetPortBaudRate(19200);
-            //serialPort1.Parity = SetPortParity(_serialPort.Parity);
-            //serialPort1.DataBits = SetPortDataBits(_serialPort.DataBits);
-            //serialPort1.StopBits = SetPortStopBits(_serialPort.StopBits);
-            //serialPort1.Handshake = SetPortHandshake(_serialPort.Handshake);
-
-
-            //Set the read / write timeouts
-            //serialPort1.ReadTimeout = 500;
-            //serialPort1.WriteTimeout = 500;
             if (!serialPort1.IsOpen)
             {
                 serialPort1.Open();
-                serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveDatazz);
+                serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData);
             }
 
             _continue = true;
@@ -80,7 +56,7 @@ namespace cansat_app
          
         }
 
-        private  void port_OnReceiveDatazz(object sender,
+        private  void port_OnReceiveData(object sender,
                                   SerialDataReceivedEventArgs e)
         {
             //SerialPort sp = (SerialPort)sender;
@@ -172,10 +148,6 @@ namespace cansat_app
                 {
                     PutDataPayload1(PayloadData.SpAltitude, PayloadData.SpTemperature, PayloadData.SpRotationRate);
                 }
-                else
-                {
-                    PutDataPayload2(PayloadData.SpAltitude, PayloadData.SpTemperature, PayloadData.SpRotationRate);
-                }
                 
             }
         }
@@ -206,98 +178,7 @@ namespace cansat_app
             }
         }
 
-        public static int SetPortBaudRate(int defaultPortBaudRate)
-        {
-            string baudRate = "";
-
-            Console.Write("Baud Rate({0}): ", defaultPortBaudRate);
-            //baudRate = Console.ReadLine();
-
-            if (baudRate == "")
-            {
-                baudRate = defaultPortBaudRate.ToString();
-            }
-
-            return int.Parse(baudRate);
-        }
-
-        public static Parity SetPortParity(Parity defaultPortParity)
-        {
-            string parity = "";
-
-            Console.WriteLine("Available Parity options:");
-            foreach (string s in Enum.GetNames(typeof(Parity)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Parity({0}):", defaultPortParity.ToString());
-            //parity = Console.ReadLine();
-
-            if (parity == "")
-            {
-                parity = defaultPortParity.ToString();
-            }
-
-            return (Parity)Enum.Parse(typeof(Parity), parity);
-        }
-
-        public static int SetPortDataBits(int defaultPortDataBits)
-        {
-            string dataBits = "";
-
-            Console.Write("Data Bits({0}): ", defaultPortDataBits);
-            //dataBits = Console.ReadLine();
-
-            if (dataBits == "")
-            {
-                dataBits = defaultPortDataBits.ToString();
-            }
-
-            return int.Parse(dataBits);
-        }
-
-        public static StopBits SetPortStopBits(StopBits defaultPortStopBits)
-        {
-            string stopBits = "";
-
-            Console.WriteLine("Available Stop Bits options:");
-            foreach (string s in Enum.GetNames(typeof(StopBits)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Stop Bits({0}):", defaultPortStopBits.ToString());
-            //stopBits = Console.ReadLine();
-
-            if (stopBits == "")
-            {
-                stopBits = defaultPortStopBits.ToString();
-            }
-
-            return (StopBits)Enum.Parse(typeof(StopBits), stopBits);
-        }
-
-        public static Handshake SetPortHandshake(Handshake defaultPortHandshake)
-        {
-            string handshake = "";
-
-            Console.WriteLine("Available Handshake options:");
-            foreach (string s in Enum.GetNames(typeof(Handshake)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Handshake({0}):", defaultPortHandshake.ToString());
-            //handshake = Console.ReadLine();
-
-            if (handshake == "")
-            {
-                handshake = defaultPortHandshake.ToString();
-            }
-
-            return (Handshake)Enum.Parse(typeof(Handshake), handshake);
-        }
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -389,7 +270,6 @@ namespace cansat_app
                 String M = m.ToString();
                 PutData(N,M, N, M,N, M, N, M, N, M, N, M,"R","N");
                 PutDataPayload1(N, M, N);
-                PutDataPayload2(N, M, N);
                 Thread.Sleep(200);
             }
             
@@ -671,12 +551,6 @@ namespace cansat_app
             P1RPM_lbl.Text = p1rpm;
         }
 
-        public void PutDataPayload2(string p2a, string p2t, string p2rpm)
-        {
-            //P2A_lbl.Text = p2a;
-            //P2T_lbl.Text = p2t;
-            //P2RPM_lbl.Text = p2rpm;
-        }
 
         private void groupBox9_Enter(object sender, EventArgs e)
         {
