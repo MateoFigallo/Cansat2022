@@ -20,7 +20,7 @@ namespace cansat_app
             client.MqttMsgSubscribed += client_MqttMsgSubscribed;
             client.MqttMsgUnsubscribed += client_MqttMsgUnsubscribed;
 
-            client.Connect(Guid.NewGuid().ToString(), "1064", "Puedkuco504_");
+            client.Connect(Guid.NewGuid().ToString(), "1064", "Tailfaji110");
             Subscribe(client);
 
             var isConnected = client.IsConnected;

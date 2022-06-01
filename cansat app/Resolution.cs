@@ -30,7 +30,7 @@ namespace cansat_app
         {
             InitializeComponent();
             simfile = textBox3.Text;
-            export = "C:/cansat 2021/csv/";
+            export = "C:/cansat 2022/csv/";
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
@@ -83,14 +83,13 @@ namespace cansat_app
                             message += (char)buffer[i];
                         }
 
-                        // this.textBox1.Text = message;
+                        // escribe el mensaje en el textbox1 para ser detectado por evento "textBox1_TextChanged"
                         SetText(message);
                         //Split message and send to CsvHelper class to create or append 
                         telemetry = message.Split(',').ToList();
-                        Cansat2021.CsvHelper.writeCsvFromList(telemetry,export);
+                        Cansat2021.CsvHelper.writeCsvFromList(telemetry,export); //escribe los datos en un CSV file
 
-                        //fillForm(telemetry);
-                        //Send message to Mqtt server
+                        
                         
 
                     }
@@ -106,29 +105,25 @@ namespace cansat_app
 
                 var Containerdata = new Container {
                     TeamId = telemetry[0],
-                    MissionTime = telemetry[1],
-                    PacketCount = telemetry[2],
-                    PacketType = telemetry[3],
-                    Mode = telemetry[4],
-                    Sp1Released = telemetry[5],
-                    Sp2Released = telemetry[6],
-                    Altitude = telemetry[7],
-                    Temperature = telemetry[8],
-                    Voltage = telemetry[9],
-                    GpsTime = telemetry[10],
-                    GpsLatitude = telemetry[11],
-                    GpsLongitude = telemetry[12],
-                    GpsAltitude = telemetry[13],
-                    GpsSats = telemetry[14],
-                    SoftwareState = telemetry[15],
-                    Sp1PacketCount = telemetry[16],
-                    Sp2PacketCount = telemetry[17],
-                    CmdEcho = telemetry[18]
+                    MissionTime =telemetry[1],
+                    PacketCount =telemetry[2],
+                    PacketType =telemetry[3],
+                    Mode =telemetry[4],
+                    TPReleased =telemetry[5],
+                    Altitude =telemetry[6],
+                    Temperature =telemetry[7],
+                    Voltage =telemetry[8],
+                    GpsTime =telemetry[9],
+                    GpsLatitude =telemetry[10],
+                    GpsLongitude =telemetry[11],
+                    GpsAltitude =telemetry[12],
+                    GpsSats =telemetry[13],
+                    SoftwareState =telemetry[14],
+                    CmdEcho =telemetry[15]
                 };
 
                 PutData(Containerdata.PacketCount, Containerdata.MissionTime, Containerdata.GpsTime, Containerdata.GpsLatitude, Containerdata.GpsLongitude, Containerdata.GpsAltitude
-                    , Containerdata.GpsSats, Containerdata.Voltage, Containerdata.Altitude, Containerdata.Temperature, Containerdata.Sp1PacketCount, Containerdata.Sp2PacketCount,
-                    Containerdata.Sp1Released, Containerdata.Sp2Released);
+                    , Containerdata.GpsSats, Containerdata.Voltage, Containerdata.Altitude, Containerdata.Temperature, Containerdata.TPReleased);
             }
             else
             {
@@ -139,14 +134,24 @@ namespace cansat_app
                         MissionTime = telemetry[1],
                         PacketCount = telemetry[2],
                         PacketType = telemetry[3],
-                        SpAltitude = telemetry[4],
-                        SpTemperature = telemetry[5],
-                        SpRotationRate = telemetry[6]
-                    
+                        TpAltitude = telemetry[4],
+                        TpTemperature = telemetry[5],
+                        TpVoltage = telemetry[6],
+                        GYRO_R = telemetry[7],
+                        GYRO_P = telemetry[8],
+                        GYRO_Y = telemetry[9],
+                        ACCEL_R = telemetry[10],
+                        ACCEL_P = telemetry[11],
+                        ACCEL_Y = telemetry[12],
+                        MAG_R = telemetry[13],
+                        MAG_P = telemetry[14],
+                        MAG_Y = telemetry[15],
+                        POINTING_ERROR = telemetry[16],
+                        TpSoftwareState = telemetry[17]
                     };
-                if(PayloadData.PacketType == "SP1")
+                if(PayloadData.PacketType == "T")
                 {
-                    PutDataPayload1(PayloadData.SpAltitude, PayloadData.SpTemperature, PayloadData.SpRotationRate);
+                    PutDataPayload1(PayloadData.TpAltitude, PayloadData.TpTemperature, PayloadData.POINTING_ERROR);
                 }
                 
             }
@@ -268,7 +273,7 @@ namespace cansat_app
                 String N = n.ToString();
                 double m = i * 0.5;
                 String M = m.ToString();
-                PutData(N,M, N, M,N, M, N, M, N, M, N, M,"R","N");
+                PutData(N,M, N, M,N, M, N, M, N, "R","N");
                 PutDataPayload1(N, M, N);
                 Thread.Sleep(200);
             }
@@ -301,7 +306,7 @@ namespace cansat_app
         }
 
         //FUNCION PUBLICA MANDAR DATOS A LABEL EN TIEMPO REALL
-        public void PutData(string pc, string mt, string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA, string cT, string p1cp, string p2cp, String sp1r, String sp2r)
+        public void PutData(string pc, string mt, string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA, string cT, string tpr)
         {
             packetCount_lbl.Text = pc;
             missionTime_lbl.Text = mt;
@@ -313,9 +318,7 @@ namespace cansat_app
             voltage_lbl.Text = cV;
             cAltitude_lbl.Text = cA;
             cTemperature_lbl.Text = cT;
-            P1pc_lbl.Text = p1cp;
-            //P2pc_lbl.Text = p2cp;
-            if (sp1r.Equals("R"))
+            if (tpr.Equals("R"))
             {
                 P1green_img.Visible = true;
                 P1red_img.Visible = false;
@@ -326,17 +329,7 @@ namespace cansat_app
                 P1green_img.Visible = false;
                 P1red_img.Visible = true;
             }
-            if (sp2r.Equals("R"))
-            {
-                //P2green_img.Visible = true;
-                //P2red_img.Visible = false;
-
-            }
-            else
-            {
-                //P2green_img.Visible = false;
-                //P2red_img.Visible = true;
-            }
+            
             Application.DoEvents();
         }
 
@@ -344,38 +337,45 @@ namespace cansat_app
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var datatx = "CMD,1064,CX,ON";
-            bufferout.Clear();
-            bufferout.Add(0x7E);
-            bufferout.Add(0x00);
-            bufferout.Add((byte)(datatx.Length + 5));
-            bufferout.Add(0x01);
-            bufferout.Add(0x01);
-            bufferout.Add(0x01); //0x01 
-            bufferout.Add(0x11); //0x11
-            bufferout.Add(0x00);
-
-            for (int i = 0; i < datatx.Length; i++)
+            try
             {
-                bufferout.Add((byte)datatx[i]);
+                var datatx = "CMD,1064,CX,ON";
+                bufferout.Clear();
+                bufferout.Add(0x7E);
+                bufferout.Add(0x00);
+                bufferout.Add((byte)(datatx.Length + 5));
+                bufferout.Add(0x01);
+                bufferout.Add(0x01);
+                bufferout.Add(0x01); //0x01 
+                bufferout.Add(0x11); //0x11
+                bufferout.Add(0x00);
+
+                for (int i = 0; i < datatx.Length; i++)
+                {
+                    bufferout.Add((byte)datatx[i]);
+                }
+                byte chkaux = 0;
+                for (int i = 3; i < datatx.Length + 8; i++)
+                {
+                    chkaux += bufferout[i];
+                }
+                chkaux = (byte)(0xFF - chkaux);
+                bufferout.Add(chkaux);
+
+
+
+
+                if (!serialPort1.IsOpen)
+                {
+                    serialPort1.Open();
+
+                }
+                serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
             }
-            byte chkaux = 0;
-            for (int i = 3; i < datatx.Length + 8; i++)
+            catch (Exception ex)
             {
-                chkaux += bufferout[i];
+                MessageBox.Show(ex.Message);
             }
-            chkaux = (byte)(0xFF - chkaux);
-            bufferout.Add(chkaux);
-
-
-
-
-            if (!serialPort1.IsOpen)
-            {
-                serialPort1.Open();
-
-            }
-            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
         }
 
 
@@ -539,16 +539,16 @@ namespace cansat_app
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            fillForm(textBox1.Text.Split(',').ToList());
-            Mqtt.Publish(textBox1.Text);
+            fillForm(textBox1.Text.Split(',').ToList()); //muestra los datos en pantalla
+            Mqtt.Publish(textBox1.Text); //envia los datos al Servidor MQTT
         }
             
 
-        public void PutDataPayload1(string p1a,string p1t, string p1rpm)
+        public void PutDataPayload1(string p1a,string p1t, string POINTING_ERROR)
         {
             P1A_lbl.Text = p1a;
             P1T_lbl.Text = p1t;
-            P1RPM_lbl.Text = p1rpm;
+            P1RPM_lbl.Text = POINTING_ERROR;
         }
 
 
@@ -569,8 +569,7 @@ namespace cansat_app
         public string PacketCount { get; set; }
         public string PacketType { get; set; }
         public string Mode { get; set; }
-        public string Sp1Released { get; set; }
-        public string Sp2Released { get; set; }
+        public string TPReleased { get; set; }
         public string Altitude { get; set; }
         public string Temperature { get; set; }
         public string Voltage { get; set; }
@@ -580,8 +579,6 @@ namespace cansat_app
         public string GpsAltitude { get; set; }
         public string GpsSats { get; set; }
         public string SoftwareState { get; set; }
-        public string Sp1PacketCount { get; set; }
-        public string Sp2PacketCount { get; set; }
         public string CmdEcho { get; set; }
 
     }
@@ -592,8 +589,19 @@ namespace cansat_app
         public string MissionTime { get; set; }
         public string PacketCount { get; set; }
         public string PacketType { get; set; }
-        public string SpAltitude { get; set; }
-        public string SpTemperature { get; set; }
-        public string SpRotationRate { get; set; }
+        public string TpAltitude { get; set; }
+        public string TpTemperature { get; set; }
+        public string TpVoltage { get; set; }
+        public string GYRO_R { get; set; }
+        public string GYRO_P { get; set; }
+        public string GYRO_Y { get; set; }
+        public string ACCEL_R { get; set; }
+        public string ACCEL_P { get; set; }
+        public string ACCEL_Y { get; set; }
+        public string MAG_R { get; set; }
+        public string MAG_P { get; set; }
+        public string MAG_Y { get; set; }
+        public string POINTING_ERROR { get; set; }
+        public string TpSoftwareState { get; set; }
     }
 }

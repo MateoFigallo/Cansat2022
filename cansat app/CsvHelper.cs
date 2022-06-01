@@ -27,20 +27,17 @@ namespace Cansat2021
                             PacketCount = telemetryList[2],
                             PacketType = telemetryList[3],
                             Mode = telemetryList[4],
-                            Sp1Released = telemetryList[5],
-                            Sp2Released = telemetryList[6],
-                            Altitude = telemetryList[7],
-                            Temperature = telemetryList[8],
-                            Voltage = telemetryList[9],
-                            GpsTime = telemetryList[10],
-                            GpsLatitude = telemetryList[11],
-                            GpsLongitude = telemetryList[12],
-                            GpsAltitude = telemetryList[13],
-                            GpsSats = telemetryList[14],
-                            SoftwareState = telemetryList[15],
-                            Sp1PacketCount = telemetryList[16],
-                            Sp2PacketCount = telemetryList[17],
-                            CmdEcho = telemetryList[18]
+                            TPReleased = telemetryList[5],
+                            Altitude = telemetryList[6],
+                            Temperature = telemetryList[7],
+                            Voltage = telemetryList[8],
+                            GpsTime = telemetryList[9],
+                            GpsLatitude = telemetryList[10],
+                            GpsLongitude = telemetryList[11],
+                            GpsAltitude = telemetryList[12],
+                            GpsSats = telemetryList[13],
+                            SoftwareState = telemetryList[14],
+                            CmdEcho = telemetryList[15]
                         }
                     };
                     //string path = "C:\\Flight_1064_C.csv";
@@ -57,14 +54,25 @@ namespace Cansat2021
                             MissionTime = telemetryList[1],
                             PacketCount = telemetryList[2],
                             PacketType = telemetryList[3],
-                            SpAltitude = telemetryList[4],
-                            SpTemperature = telemetryList[5],
-                            SpRotationRate = telemetryList[6]
+                            TpAltitude = telemetryList[4],
+                            TpTemperature = telemetryList[5],
+                            TpVoltage = telemetryList[6],
+                            GYRO_R = telemetryList[7],
+                            GYRO_P = telemetryList[8],
+                            GYRO_Y = telemetryList[9],
+                            ACCEL_R = telemetryList[10],
+                            ACCEL_P = telemetryList[11],
+                            ACCEL_Y = telemetryList[12],
+                            MAG_R = telemetryList[13],
+                            MAG_P = telemetryList[14],
+                            MAG_Y = telemetryList[15],
+                            POINTING_ERROR = telemetryList[16],
+                            TpSoftwareState = telemetryList[17]
                         }
                     };
                     string path2;
 
-                    path2 = telemetryList[3] == "SP1" ? "\\Flight_1064_SP1.csv" : "\\Flight_1064_SP2.csv";
+                    path2 = "\\Flight_1064_T.csv" ;
                     handlePayloadFile(path+path2, records);
                 }
             }
@@ -77,24 +85,21 @@ namespace Cansat2021
                 {
                     new Container {
                         TeamId = telemetryList[0],
-                        MissionTime = telemetryList[1],
-                        PacketCount = telemetryList[2],
-                        PacketType = telemetryList[3],
-                        Mode = telemetryList[4],
-                        Sp1Released = telemetryList[5],
-                        Sp2Released = telemetryList[6],
-                        Altitude = telemetryList[7],
-                        Temperature = telemetryList[8],
-                        Voltage = telemetryList[9],
-                        GpsTime = telemetryList[10],
-                        GpsLatitude = telemetryList[11],
-                        GpsLongitude = telemetryList[12],
-                        GpsAltitude = telemetryList[13],
-                        GpsSats = telemetryList[14],
-                        SoftwareState = telemetryList[15],
-                        Sp1PacketCount = telemetryList[16],
-                        Sp2PacketCount = telemetryList[17],
-                        CmdEcho = telemetryList[18]
+                            MissionTime = telemetryList[1],
+                            PacketCount = telemetryList[2],
+                            PacketType = telemetryList[3],
+                            Mode = telemetryList[4],
+                            TPReleased = telemetryList[5],
+                            Altitude = telemetryList[6],
+                            Temperature = telemetryList[7],
+                            Voltage = telemetryList[8],
+                            GpsTime = telemetryList[9],
+                            GpsLatitude = telemetryList[10],
+                            GpsLongitude = telemetryList[11],
+                            GpsAltitude = telemetryList[12],
+                            GpsSats = telemetryList[13],
+                            SoftwareState = telemetryList[14],
+                            CmdEcho = telemetryList[15]
                     }
                 };
                 //string path = "C:\\Flight_1064_C.csv";
@@ -108,16 +113,27 @@ namespace Cansat2021
                     new SciencePayload
                     {
                         TeamId = telemetryList[0],
-                        MissionTime = telemetryList[1],
-                        PacketCount = telemetryList[2],
-                        PacketType = telemetryList[3],
-                        SpAltitude = telemetryList[4],
-                        SpTemperature = telemetryList[5],
-                        SpRotationRate = telemetryList[6]
+                            MissionTime = telemetryList[1],
+                            PacketCount = telemetryList[2],
+                            PacketType = telemetryList[3],
+                            TpAltitude = telemetryList[4],
+                            TpTemperature = telemetryList[5],
+                            TpVoltage = telemetryList[6],
+                            GYRO_R = telemetryList[7],
+                            GYRO_P = telemetryList[8],
+                            GYRO_Y = telemetryList[9],
+                            ACCEL_R = telemetryList[10],
+                            ACCEL_P = telemetryList[11],
+                            ACCEL_Y = telemetryList[12],
+                            MAG_R = telemetryList[13],
+                            MAG_P = telemetryList[14],
+                            MAG_Y = telemetryList[15],
+                            POINTING_ERROR = telemetryList[16],
+                            TpSoftwareState = telemetryList[17]
                     }
                 };
                 String path2;
-                path2 = telemetryList[3] == "SP1" ? "\\Flight_1064_SP1.csv" : "\\Flight_1064_SP2.csv";
+                path2 = "\\Flight_1064_T.csv" ;
 
                 handlePayloadFile(path+path2, records);
             }
@@ -132,8 +148,7 @@ namespace Cansat2021
             public string PacketCount { get; set; }
             public string PacketType { get; set; }
             public string Mode { get; set; }
-            public string Sp1Released { get; set; }
-            public string Sp2Released { get; set; }
+            public string TPReleased { get; set; }
             public string Altitude { get; set; }
             public string Temperature { get; set; }
             public string Voltage { get; set; }
@@ -143,8 +158,6 @@ namespace Cansat2021
             public string GpsAltitude { get; set; }
             public string GpsSats { get; set; }
             public string SoftwareState { get; set; }
-            public string Sp1PacketCount { get; set; }
-            public string Sp2PacketCount { get; set; }
             public string CmdEcho { get; set; }
 
         }
@@ -155,9 +168,21 @@ namespace Cansat2021
             public string MissionTime { get; set; }
             public string PacketCount { get; set; }
             public string PacketType { get; set; }
-            public string SpAltitude { get; set; }
-            public string SpTemperature { get; set; }
-            public string SpRotationRate { get; set; }
+            public string TpAltitude { get; set; }
+            public string TpTemperature { get; set; }
+            public string TpVoltage { get; set; }
+            public string GYRO_R { get; set; }
+            public string GYRO_P { get; set; }
+            public string GYRO_Y { get; set; }
+            public string ACCEL_R{ get; set; }
+            public string ACCEL_P{ get; set; }
+            public string ACCEL_Y{ get; set; }
+            public string MAG_R { get; set; }
+            public string MAG_P { get; set; }
+            public string MAG_Y { get; set; }
+            public string POINTING_ERROR { get; set; }
+            public string TpSoftwareState { get; set; }
+
         }
 
         private static void handleContainerFile(string path, List<Container> records)
